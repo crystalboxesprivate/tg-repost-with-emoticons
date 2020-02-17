@@ -16,7 +16,7 @@ let doGenericApiCall = async (name, data) => {
   })
 }
 
-let functionNames = ['getUpdates']
+let functionNames = ['getUpdates', 'sendMessage']
 let Functions = fromEntries(functionNames.map(x => [x, x]))
 
 module.exports = {

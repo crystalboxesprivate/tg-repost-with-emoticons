@@ -1,7 +1,6 @@
 let config = require('../config')
 let fromEntries = require('fromentries')
 const request = require('request')
-request.shouldKeepAlive = false
 
 let getApiUrl = methodName => `${config.address}/bot${config.token}/${methodName}`
 let doGenericApiCall = async (name, data) => {

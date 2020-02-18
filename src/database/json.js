@@ -1,5 +1,5 @@
 const api = require('../api')
-let utils = require('./utils')
+const utils = require('./utils')
 const fs = require('fs')
 
 const { RepostEntry, ReactionsKeyboard } = require('../reactions')
@@ -114,7 +114,7 @@ module.exports = {
     data.reposts[key] = entry
     return keyboardDataEntry
   },
-  addRepostEntry: (repostEntry) => {
+  addRepostEntry: repostEntry => {
     data.reposts[utils.makeRepostsKey(repostEntry.chatId, repostEntry.messageId)] = {
       user: repostEntry.user,
       source: repostEntry.source,

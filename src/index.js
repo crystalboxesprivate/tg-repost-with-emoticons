@@ -1,6 +1,6 @@
 let api = require('./api')
 let assert = require('assert')
-let applicationState = require('./application-state')
+let applicationState = require('./database/application-state-json')
 let reactions = require('./reactions')
 let config = require('./config')
 const { ReactionsKeyboard, ReactionsKeyboardSettings } = reactions

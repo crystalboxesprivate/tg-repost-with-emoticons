@@ -1,8 +1,8 @@
-const api = require('./api')
-let Data = require('./data')
+const api = require('../api')
+let utils = require('./utils')
 const fs = require('fs')
 
-const { RepostEntry, ReactionsKeyboard } = require('./reactions')
+const { RepostEntry, ReactionsKeyboard } = require('../reactions')
 
 let data = {
   reposts: {},
@@ -45,14 +45,14 @@ let removeReactionEntry = entry => {
 module.exports = {
   getRepostAuthor: (chatId, messageId) => {
     let postAuthor = null
-    let key = Data.makeRepostsKey(chatId, messageId)
+    let key = utils.makeRepostsKey(chatId, messageId)
     if (repostsHasKey(key)) {
       postAuthor = data.reposts[key].user
     }
     return postAuthor
   },
   hasRepostInDatabase: (chatId, messageId) => {
-    return repostsHasKey(Data.makeRepostsKey(chatId, messageId))
+    return repostsHasKey(utils.makeRepostsKey(chatId, messageId))
   },
   clearReactionsForPost: (chatId, messageId) => {
     let idxToRemove = []
@@ -67,7 +67,7 @@ module.exports = {
     idxToRemove.forEach(i => data.reactionEntries.splice(i, 1))
   },
   swapKeyboard: (chatId, messageId, keyboardDataEntry) => {
-    let key = Data.makeRepostsKey(chatId, messageId)
+    let key = utils.makeRepostsKey(chatId, messageId)
     if (!repostsHasKey(key)) {
       return
     }
@@ -76,7 +76,7 @@ module.exports = {
     data.reposts[key] = entry
   },
   getReactionKeyboardData: (chatId, messageId) => {
-    var key = Data.makeRepostsKey(chatId, messageId);
+    var key = utils.makeRepostsKey(chatId, messageId);
     if (repostsHasKey(key)) {
       var entry = data.reposts[key];
       keyboardCounts = entry.dataEntry.buttons.map(x => x[1])
@@ -104,7 +104,7 @@ module.exports = {
     return counterDiffValue
   },
   updateKeyboardCounts: (chatId, messageId, keyboardCounts) => {
-    let key = Data.makeRepostsKey(chatId, messageId);
+    let key = utils.makeRepostsKey(chatId, messageId);
     let entry = data.reposts[key];
     for (let x = 0; x < keyboardCounts.length; x++) {
       let button = entry.dataEntry.buttons[x];
@@ -115,7 +115,7 @@ module.exports = {
     return keyboardDataEntry
   },
   addRepostEntry: (repostEntry) => {
-    data.reposts[Data.makeRepostsKey(repostEntry.chatId, repostEntry.messageId)] = {
+    data.reposts[utils.makeRepostsKey(repostEntry.chatId, repostEntry.messageId)] = {
       user: repostEntry.user,
       source: repostEntry.source,
       dataEntry: ReactionsKeyboard.makeDefaultDataEntry(repostEntry.keyboard)

@@ -1,5 +1,5 @@
 const api = require('./main')
-const applicationState = require('../application-state')
+const applicationState = require('../database/application-state-json')
 
 let updatesHandler = null
 let currentOffset = 0
